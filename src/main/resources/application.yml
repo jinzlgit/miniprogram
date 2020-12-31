@@ -1,0 +1,69 @@
+# 项目全局配置
+project:
+  # 项目名称
+  name: mini
+  # 版本
+  version: 1.0.0
+  # 实例演示开关
+  demoEnabled: true
+  # 文件路径
+  profile: /opt/mini
+  # 获取IP地址开关
+  addressEnabled: true
+
+# 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为80
+  port: 8088
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # Tomcat的最大线程数，默认200
+    max-threads: 800
+    # tomcat的启动初始化的线程数，默认10
+    min-spare-threads: 30
+
+# RestTemplate配置
+http:
+  rest:
+    timeout:
+      # 连接超时时间，单位毫秒
+      connect: 30000
+      # 响应超时时间，单位毫秒
+      read: 30000
+
+# 日志配置
+logging:
+  level:
+    com.king: debug
+    org.springframework: info
+
+# Spring配置
+spring:
+  profiles:
+    # 多环境部署配置 dev:开发环境 test:测试环境 prod:生产环境
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  # 将404异常直接抛出，以便统一返回异常
+  mvc:
+    throw-exception-if-no-handler-found: true
+  # 不要为资源文件建立映射，方可自定义404统一返回异常
+  resources:
+    add-mappings: false
+
+# Mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或分号隔开（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    # 是否开启自动驼峰命名规则映射：从数据库列名到 Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 返回 map 时 true：当查询数据为空时字段返回为 null，false：查询数据为空时，字段被隐藏
+    call-setters-on-nulls: true
+    # 这个配置会将执行的 SQL 打印出来，在开发和测试的时候可以用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
